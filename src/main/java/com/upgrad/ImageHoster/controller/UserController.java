@@ -71,22 +71,23 @@ public class UserController {
 
         if (userService.getByName(username) == null) {
 
-            // We'll first assign a default photo to the user
-            ProfilePhoto photo = new ProfilePhoto();
-            profilePhotoService.save(photo);
+                // We'll first assign a default photo to the user
+                ProfilePhoto photo = new ProfilePhoto();
+                profilePhotoService.save(photo);
 
-            // it is good security practice to store the hash version of the password
-            // in the database. Therefore, if your a hacker gains access to your
-            // database, the hacker cannot see the password for your users
-            String passwordHash = hashPassword(password);
-            User user = new User(username, passwordHash, photo);
-            userService.register(user);
+                // it is good security practice to store the hash version of the password
+                // in the database. Therefore, if your a hacker gains access to your
+                // database, the hacker cannot see the password for your users
+                String passwordHash = hashPassword(password);
+                User user = new User(username, passwordHash, photo);
+                userService.register(user);
 
-            // We want to create an "currUser" attribute in the HTTP session, and store the user
-            // as the attribute's value to signify that the user has logged in
-            session.setAttribute("currUser", user);
+                // We want to create an "currUser" attribute in the HTTP session, and store the user
+                // as the attribute's value to signify that the user has logged in
+                session.setAttribute("currUser", user);
 
-            return "redirect:/";
+                return "redirect:/";
+
         } else {
 
             errors.put("username", "username has been registered");
