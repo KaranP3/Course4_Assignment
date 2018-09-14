@@ -71,6 +71,15 @@ public class UserController {
 
         if (userService.getByName(username) == null) {
 
+            // Check if username or password contain less than six characters and display an error in this case
+            // else, sign up the user
+            if (username.length() < 6 || password.length() < 6) {
+
+                errors.put("username", "needs to be 6 characters or longer");
+                errors.put("password", "needs to be 6 characters or longer");
+                model.addAttribute("errors", errors);
+            } else {
+
                 // We'll first assign a default photo to the user
                 ProfilePhoto photo = new ProfilePhoto();
                 profilePhotoService.save(photo);
@@ -87,6 +96,7 @@ public class UserController {
                 session.setAttribute("currUser", user);
 
                 return "redirect:/";
+            }
 
         } else {
 
