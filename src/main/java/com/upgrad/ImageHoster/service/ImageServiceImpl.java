@@ -39,6 +39,11 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public void deleteById(Image image) {
+        imageManager.deleteImageById(image.getId());
+    }
+
+    @Override
     public void save(Image image) { imageManager.saveImage(image); }
 
     @Override

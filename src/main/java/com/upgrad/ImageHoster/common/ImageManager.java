@@ -162,6 +162,17 @@ public class ImageManager extends SessionManager {
         commitSession(session);
     }
 
+    // Method to delete by Images by ID
+
+    public void deleteImageById(final int id) {
+
+        Session session = openSession();
+        Query query = session.createQuery("Delete from " + Image.class.getName() + " where id=:imageId");
+        query.setParameter("imageId", id);
+        query.executeUpdate();
+        commitSession(session);
+    }
+
     /**
      * This method saves an image's data to the database
      *

@@ -11,6 +11,7 @@ public interface ImageService{
     Image getByTitleWithJoin(String title);
     Image getById(int id);
     void deleteByTitle(Image image);
+    void deleteById(Image image);
     void save(Image image);
     void update(Image image);
 }
