@@ -1,5 +1,6 @@
 package com.upgrad.ImageHoster.common;
 
+import com.upgrad.ImageHoster.model.Comment;
 import com.upgrad.ImageHoster.model.Image;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -42,6 +43,7 @@ public class ImageManager extends SessionManager {
             Hibernate.initialize(currentImage.getTags());
             Hibernate.initialize(currentImage.getUser());
             Hibernate.initialize(currentImage.getUser().getProfilePhoto());
+            Hibernate.initialize(currentImage.getComments());
 
             // Commit the session and return the image
             commitSession(session);
@@ -167,6 +169,9 @@ public class ImageManager extends SessionManager {
     public void deleteImageById(final int id) {
 
         Session session = openSession();
+        Query commentQuery = session.createQuery("Delete from " + Comment.class.getName() + " where image_id=:imageId");
+        commentQuery.setParameter("imageId", id);;
+        commentQuery.executeUpdate();
         Query query = session.createQuery("Delete from " + Image.class.getName() + " where id=:imageId");
         query.setParameter("imageId", id);
         query.executeUpdate();
