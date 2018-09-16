@@ -4,6 +4,7 @@ package com.upgrad.ImageHoster.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.time.LocalDate;
 
@@ -38,6 +39,11 @@ public class Image implements Serializable{
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    // Here we give the one to many relationship between the image and comment classes
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "image")
+    private List<Comment> comments = new LinkedList<>();
+
+
     // These  annotations creates a join table for many-to-many relationships
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="Image_Tag",
@@ -56,6 +62,14 @@ public class Image implements Serializable{
         this.user = user;
         this.uploadDate = LocalDate.now();
         this.tags = tags;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public int getId() {

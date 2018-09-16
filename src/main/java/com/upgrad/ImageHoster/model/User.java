@@ -32,6 +32,10 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Image> images = new ArrayList<Image>();
 
+    // Here we give a one to many relationship between the user and comment classes
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Comment> comments = new ArrayList<Comment>();
+
 
     public User() { }
 

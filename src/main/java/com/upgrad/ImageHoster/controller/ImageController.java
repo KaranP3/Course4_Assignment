@@ -125,6 +125,7 @@ public class ImageController {
         model.addAttribute("user", image.getUser());
         model.addAttribute("image", image);
         model.addAttribute("tags", image.getTags());
+        model.addAttribute("comments", image.getComments());
 
         return "images/image";
     }
